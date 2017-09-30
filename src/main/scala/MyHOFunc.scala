@@ -1,13 +1,12 @@
 
-class MyHOFunc(val i: List[Any]){
+class MyHOFunc[A](val l: List[A]){
   import MyHOFunc._
 
-  def myMap(f: Any => Any): List[Any]= {
-    i
+  def myMap(f:A=>A): List[A] = {
+    (for{i<-0 to l.length-1} yield f(l(i))).toList
   }
 }
 
 object MyHOFunc {
-  implicit def collectionToMyHOFunc(i: List[Any]): MyHOFunc = new MyHOFunc(i)
-
+  implicit def collectionToMyHOFunc[A](i: List[A]): MyHOFunc[A] = new MyHOFunc(i)
 }
