@@ -38,4 +38,14 @@ class MyHOFuncSuite extends FunSuite{
   test("test of FILTER function"){
     assert((1 to 10).toList.myFilter(x=>x%2==0) == List(2,4,6,8,10))
   }
+
+  test("test of DROP function"){
+    assert((1 to 10).toList.myDrop(5) == List(6,7,8,9,10))
+    assert((1 to 10).toList.myDrop(15) == Nil)
+  }
+
+  test("test of DROPWHILE function"){
+    assert((1 to 10).toList.myDropWhile(x=>x<4) == List(4,5,6,7,8,9,10))
+    assert((1 to 10).toList.myDropWhile(x=>x%2==0) == List(1,3,5,7,9))
+  }
 }

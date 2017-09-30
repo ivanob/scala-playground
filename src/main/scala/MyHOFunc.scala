@@ -45,6 +45,16 @@ class MyHOFunc[A](val l: List[A]){
     }
     case Nil => (Nil, Nil)
   }
+
+  def myDrop(i:Int): List[A] = l match {
+    case x::xs => if(i==0) x::xs.myDrop(i) else xs.myDrop(i-1)
+    case Nil => Nil
+  }
+
+  def myDropWhile(f:A=>Boolean): List[A] = l match {
+    case x::xs => if(f(x)) xs.myDropWhile(f) else x::xs.myDropWhile(f)
+    case Nil => Nil
+  }
 }
 
 object MyHOFunc {
