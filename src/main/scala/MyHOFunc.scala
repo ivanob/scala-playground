@@ -14,14 +14,13 @@ class MyHOFunc[A](val l: List[A]){
     (for { i<-0 to l.length-1 if(l2.length>i)} yield (l(i),l2(i))).toList
   }
 
-  def myFind(f:Int => Boolean): Option[A] = {
+  def myFind(f:A => Boolean): Option[A] = {
     (for{
       i<- 0 to l.length-1
-      if(f(i))}
+      if(f(l(i)))}
       yield l(i)).toList
         match {
          case x::xs => Some(x)
-         case x::Nil => Some(x)
          case Nil => None
       }
   }

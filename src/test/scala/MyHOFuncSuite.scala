@@ -19,7 +19,9 @@ class MyHOFuncSuite extends FunSuite{
   }
 
   test("test of FIND function"){
-    assert(List(1,2,3,4,5).myFind(x=>x==1) == Some(0))
+    assert(List(1,2,3,4,5).myFind(x=>x==1) == Some(1))
+    assert(List(1,2,3,4,5).myFind(x=>x>=3) == Some(3))
+    assert(List(1,2,3,4,5).myFind(x=>x>10) == None)
   }
 
   test("test of REDUCE function"){
