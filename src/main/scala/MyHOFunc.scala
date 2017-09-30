@@ -7,7 +7,7 @@ class MyHOFunc[A](val l: List[A]){
   import MyHOFunc._
 
   def myMap(f:A=>A): List[A] = {
-    (for{i<-0 to l.length-1} yield f(l(i))).toList
+    (for{elem<- l} yield f(elem))
   }
 
   def myZip[B](l2:List[B]):List[(A,B)] = {
@@ -16,13 +16,20 @@ class MyHOFunc[A](val l: List[A]){
 
   def myFind(f:A => Boolean): Option[A] = {
     (for{
-      i<- 0 to l.length-1
-      if(f(l(i)))}
-      yield l(i)).toList
+      elem <- l
+      if(f(elem))}
+      yield elem)
         match {
          case x::xs => Some(x)
          case Nil => None
       }
+  }
+
+  def myFilter(f:A=>Boolean): List[A] = {
+    (for{
+      elem <- l
+      if(f(elem))}
+      yield elem)
   }
 
   def myReduce(f:(A,A)=>A): A = l match {
@@ -31,6 +38,13 @@ class MyHOFunc[A](val l: List[A]){
     case Nil => throw new Exception("ERROR")
   }
 
+  def myPartition(f:A=>Boolean): (List[A],List[A]) = l match {
+    case x :: xs => {
+        val p = xs.myPartition(f)
+        if(f(x)) (x::p._1, p._2) else (p._1, x::p._2)
+    }
+    case Nil => (Nil, Nil)
+  }
 }
 
 object MyHOFunc {

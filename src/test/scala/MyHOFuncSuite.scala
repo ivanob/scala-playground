@@ -29,4 +29,13 @@ class MyHOFuncSuite extends FunSuite{
     assert(List(1,2).myReduce((a,b)=>a+b) == 3)
     assert(List(1,2,3).myReduce((a,b)=>a+b) == 6)
   }
+
+  test("test of PARTITION function"){
+    assert((1 to 10).toList.myPartition(x=>x>5) == (List(6,7,8,9,10),List(1,2,3,4,5)))
+    assert((1 to 10).toList.myPartition(x=>x%2==0) == (List(2,4,6,8,10),List(1,3,5,7,9)))
+  }
+
+  test("test of FILTER function"){
+    assert((1 to 10).toList.myFilter(x=>x%2==0) == List(2,4,6,8,10))
+  }
 }
