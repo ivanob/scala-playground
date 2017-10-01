@@ -55,6 +55,38 @@ class MyHOFunc[A](val l: List[A]){
     case x::xs => if(f(x)) xs.myDropWhile(f) else x::xs.myDropWhile(f)
     case Nil => Nil
   }
+
+  /**
+    * If we transform the foldLeft operation into a inline expression, we
+    * have something like:
+    * List(1,2,3,4).myLeftFold(50)(_-_) into:
+    * ((((50 - 4) - 3) -2) -1) is equal to 40
+    * The accumulator is the MOST LEFT operand
+    * Note: FoldLeft CAN be implemented as a tail recursive function
+    *
+    */
+  def myLeftFold[B](init: B)(op:(B,A)=>B):B = {
+    def go(acc:B, list:List[A]):B = list match {
+      case x :: xs => go(op(acc,x), xs)
+      case Nil => acc
+    }
+    go(init,l)
+  }
+
+  /**
+    * In this case, we can transform the foldRight operation the inline expression
+    * List(1,2,3,4).myRightFold(50)(_-_) into:
+    * (1 - (2 - (3 - (4 - 50)))) is equal to 48
+    * The accumulator is the MOST RIGHT operand
+    * Note: FoldLeft CAN NOT be implemented as a tail recursive function
+    */
+  def myRightFold[B](init: B)(op:(A,B)=>B):B = {
+    def go(acc:B, list:List[A]):B = list match {
+      case x :: xs => op(x, go(acc, xs))
+      case Nil => acc
+    }
+    go(init,l)
+  }
 }
 
 object MyHOFunc {
