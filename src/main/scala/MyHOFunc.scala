@@ -32,12 +32,6 @@ class MyHOFunc[A](val l: List[A]){
       yield elem)
   }
 
-  def myReduce(f:(A,A)=>A): A = l match {
-    case x :: Nil => x
-    case x :: xs => f(x,xs.myReduce(f))
-    case Nil => throw new Exception("ERROR")
-  }
-
   def myPartition(f:A=>Boolean): (List[A],List[A]) = l match {
     case x :: xs => {
         val p = xs.myPartition(f)
@@ -55,6 +49,41 @@ class MyHOFunc[A](val l: List[A]){
     case x::xs => if(f(x)) xs.myDropWhile(f) else x::xs.myDropWhile(f)
     case Nil => Nil
   }
+
+  def myReduce(f:(A,A)=>A): A = l match {
+    case x :: Nil => x
+    case x :: xs => f(x,xs.myReduce(f))
+    case Nil => throw new Exception("ERROR")
+  }
+
+  /**
+    * Its a pre-order visit to the tree
+    */
+  def myLeftReduce(op:(A,A)=>A): A = {
+    def go(list: List[A]): A = list match {
+      case x :: Nil => x
+      case x :: y :: xs => {
+        var acc = op(x,y) //Using a mutable accumulator
+        xs.foreach{item:A => acc=op(acc,item)}
+        acc
+      }
+      case Nil => throw new Exception ("ERROR")
+    }
+    go(l)
+  }
+
+  /**
+    * Its a post-order visit to the tree
+    */
+  def myRightReduce(op:(A,A)=>A):A = {
+    def go(list: List[A]): A = list match {
+      case x :: Nil => x
+      case x :: xs => op(x, go(xs))
+      case Nil => throw new Exception("ERROR")
+    }
+    go(l)
+  }
+
 
   /**
     * If we transform the foldLeft operation into a inline expression, we
@@ -77,6 +106,14 @@ class MyHOFunc[A](val l: List[A]){
     * In this case, we can transform the foldRight operation the inline expression
     * List(1,2,3,4).myRightFold(50)(_-_) into:
     * (1 - (2 - (3 - (4 - 50)))) is equal to 48
+    *
+    * List(1,2,3,4).myRightFold(0)(_-_) into:
+    * (1 - (2 - (3 - 4)))
+    *
+    * ...why is  the first operation (3 - 4) and no (4 - 3)? Because fold needs to preserve the
+    * commutative order of the operations. What goes from right to left is the order of the operations,
+    * not the order of the operands
+    *
     * The accumulator is the MOST RIGHT operand
     * Note: FoldLeft CAN NOT be implemented as a tail recursive function
     */
