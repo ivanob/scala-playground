@@ -93,6 +93,10 @@ class MyHOFunc[A](val l: List[A]){
     * The accumulator is the MOST LEFT operand
     * Note: FoldLeft CAN be implemented as a tail recursive function
     *
+    * 3 rules to understand foldRight/foldLeft
+    * 1- Right or Left tells us where to start from: wind of the north comes from the north
+    * 2- the accumulator is the most left operator in case of foldLeft (left operand), and the most right in foldRight (second operand)
+    * 3- left and right tells us in which order we do the operations, but the commutativity of the operands needs to be respected
     */
   def myLeftFold[B](init: B)(op:(B,A)=>B):B = {
     def go(acc:B, list:List[A]):B = list match {
