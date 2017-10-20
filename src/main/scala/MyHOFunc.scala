@@ -95,7 +95,7 @@ class MyHOFunc[A](val l: List[A]){
     *
     * 3 rules to understand foldRight/foldLeft
     * 1- Right or Left tells us where to start from: wind of the north comes from the north
-    * 2- Regarding the lambda we pass as parameter: in leftFold the accumulator is the most left operator (first argument)
+    * 2- Regarding the lambda we pass as parameter: in leftFold the accumulator is the most left operand (first argument)
     * while in rightFold is the most right (second argument) (**)
     * 3- left and right tells us in which order we have to do the operations, but the commutativity of the operands needs to be 
     * respected as it is written in the lambda
