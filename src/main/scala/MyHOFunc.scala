@@ -50,6 +50,9 @@ class MyHOFunc[A](val l: List[A]){
     case Nil => Nil
   }
 
+
+  // ----------- Folding functions -----------
+
   def myReduce(f:(A,A)=>A): A = l match {
     case x :: Nil => x
     case x :: xs => f(x,xs.myReduce(f))
@@ -84,6 +87,11 @@ class MyHOFunc[A](val l: List[A]){
     go(l)
   }
 
+  /*def myFlatten: List[A] = l match {
+    case x :: xs => x :: xs.myFlatten
+    case x :: Nil => x
+    case _ => throw new Exception("ERROR")
+  }*/
 
   /**
     * If we transform the foldLeft operation into a inline expression, we
