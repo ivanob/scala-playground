@@ -8,14 +8,28 @@
 
 object MyList {
 
-  trait List[+A]
+  sealed trait List[+A]
 
   case object Nil extends List[Nothing]
 
   case class Cons[A](val head: A, val tail: List[A]) extends List[A]
 
   object List {
+    def sum(l: List[Int]): Int = l match {
+      case Nil => 0
+      case Cons(x, y) => x + sum(y)
+    }
 
+    def mult(l: List[Int]): Int = l match {
+      case Nil => 1
+      case Cons(0, y) => 0 //Shortcut to stop multiplying in case we find 0
+      case Cons(x, y) => x * mult(y)
+    }
+
+    def apply[A](l: A*): List[A] ={
+        if(l.isEmpty) Nil
+        else Cons(l.head, apply(l.tail: _*))
+    }
   }
 
 }
