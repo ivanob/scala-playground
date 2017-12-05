@@ -26,9 +26,24 @@ object MyList {
       case Cons(x, y) => x * mult(y)
     }
 
-    def apply[A](l: A*): List[A] ={
+    def apply[A](l: A*): List[A] = {
         if(l.isEmpty) Nil
         else Cons(l.head, apply(l.tail: _*))
+    }
+
+    def tail[A](l: List[A]) = l match {
+      case Nil => Nil
+      case Cons(_, tail) => tail
+    }
+
+    def drop[A](l: List[A], n:Int): List[A] = {
+      if(n==0) l
+      else drop(tail(l), n-1)
+    }
+
+    def dropWhile[A](l: List[A])(f: A => Boolean): List[A] = l match {
+      case Nil => l
+      case Cons(x, xs) => if(f(x)) dropWhile(xs)(f) else xs
     }
   }
 

@@ -21,4 +21,11 @@ class ListSuite extends FunSuite {
     val l: List[Int] = Cons(3, Cons(2, Cons(1,Nil)))
     assert(l == List(3,2,1))
   }
+
+  test("test some basic operations"){
+    val l: List[Int] = Cons(1, Cons(2, Cons(3,Nil)))
+    assert(List.tail(l)==Cons(2, Cons(3,Nil)))
+    assert(List.drop(l,2)==Cons(3,Nil))
+    assert(List.dropWhile(l)((a:Int)=>(a<2)) == Cons(3,Nil))
+  }
 }
