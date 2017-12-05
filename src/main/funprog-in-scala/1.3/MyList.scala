@@ -45,6 +45,17 @@ object MyList {
       case Nil => l
       case Cons(x, xs) => if(f(x)) dropWhile(xs)(f) else xs
     }
+
+    def setHead[A](l: List[A], newHead: A): List[A] = l match {
+      case Nil => Cons(newHead, Nil)
+      case Cons(x, xs) => Cons(newHead, xs)
+    }
+
+    def init[A](l: List[A]): List[A] = l match {
+      case Nil => Nil
+      case Cons(_, Nil) => Nil
+      case Cons(x, xs) => Cons(x,init(xs))
+    }
   }
 
 }
