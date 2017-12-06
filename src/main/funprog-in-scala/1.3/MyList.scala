@@ -56,6 +56,28 @@ object MyList {
       case Cons(_, Nil) => Nil
       case Cons(x, xs) => Cons(x,init(xs))
     }
+
+    def foldRight[A,B](l: List[A], acc: B)(f: (A, B) => B): B = l match {
+      case Nil => acc
+      case Cons(x, xs) => f(x,foldRight(xs,acc)(f))
+    }
+
+    def sum2(l: List[Int]): Int = {
+      foldRight(l, 0)((a:Int, b:Int) => {a+b})
+    }
+
+    def mult2(l: List[Int]): Int = {
+      foldRight(l, 1)((a:Int, b:Int) => {a*b})
+    }
+
+    def length[A](l: List[A]): Int = {
+      foldRight(l,0)((a:A,b:Int)=>{1+b})
+    }
+
+    def foldLeft[A,B](l: List[A], acc: B)(f: (A, B) => B): B = l match {
+      case Nil => acc
+      case Cons(x, xs) => foldLeft(xs, f(x,acc))(f)
+    }
   }
 
 }
