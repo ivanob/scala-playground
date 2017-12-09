@@ -29,8 +29,11 @@ class ListSuite extends FunSuite {
     assert(List.dropWhile(l)((a:Int)=>(a<2)) == Cons(3,Nil))
     assert(List.setHead(l, 99) == Cons(99, Cons(2, Cons(3,Nil))))
     assert(List.init(l) == Cons(1, Cons(2, Nil)))
-    assert(List.sum2(l) == 6)
-    assert(List.mult2(l) == 6)
+    assert(List.sumRight(l) == 6)
+    assert(List.multRight(l) == 6)
     assert(List.length(l) == 3)
+    assert(List.sumLeft(l) == 6)
+    assert(List.multLeft(l) == 6)
+    assert(List.lengthLeft(l) == 3)
   }
 }

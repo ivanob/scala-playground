@@ -31,26 +31,31 @@ object MyList {
         else Cons(l.head, apply(l.tail: _*))
     }
 
+    //Exercise 3.2
     def tail[A](l: List[A]) = l match {
       case Nil => Nil
       case Cons(_, tail) => tail
     }
 
+    //Exercise 3.4
     def drop[A](l: List[A], n:Int): List[A] = {
       if(n==0) l
       else drop(tail(l), n-1)
     }
 
+    //Exercise 3.5
     def dropWhile[A](l: List[A])(f: A => Boolean): List[A] = l match {
       case Nil => l
       case Cons(x, xs) => if(f(x)) dropWhile(xs)(f) else xs
     }
 
+    //Exercise 3.3
     def setHead[A](l: List[A], newHead: A): List[A] = l match {
       case Nil => Cons(newHead, Nil)
       case Cons(x, xs) => Cons(newHead, xs)
     }
 
+    //Exercise 3.6
     def init[A](l: List[A]): List[A] = l match {
       case Nil => Nil
       case Cons(_, Nil) => Nil
@@ -62,21 +67,43 @@ object MyList {
       case Cons(x, xs) => f(x,foldRight(xs,acc)(f))
     }
 
-    def sum2(l: List[Int]): Int = {
+    def sumRight(l: List[Int]): Int = {
       foldRight(l, 0)((a:Int, b:Int) => {a+b})
     }
 
-    def mult2(l: List[Int]): Int = {
+    def multRight(l: List[Int]): Int = {
       foldRight(l, 1)((a:Int, b:Int) => {a*b})
     }
 
+    //Exercise 3.9
     def length[A](l: List[A]): Int = {
       foldRight(l,0)((a:A,b:Int)=>{1+b})
     }
 
+    //Exercise 3.10
     def foldLeft[A,B](l: List[A], acc: B)(f: (A, B) => B): B = l match {
       case Nil => acc
       case Cons(x, xs) => foldLeft(xs, f(x,acc))(f)
+    }
+
+    //Exercise 3.11
+    def sumLeft(l: List[Int]): Int = {
+      foldLeft(l, 0)((a:Int, b:Int) => {a+b})
+    }
+
+    //Exercise 3.11
+    def multLeft(l: List[Int]): Int = {
+      foldLeft(l, 1)((a:Int, b:Int) => {a*b})
+    }
+
+    //Exercise 3.11
+    def lengthLeft[A](l: List[A]): Int = {
+      foldLeft(l,0)((a:A,b:Int)=>{1+b})
+    }
+
+    //Exercise 3.12
+    def reverse[A](l: List[A]): List[A] = {
+      foldRight(l, Nil)((a:List[A], b:List[A])=>Cons(a,b))
     }
   }
 
