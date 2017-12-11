@@ -112,10 +112,13 @@ object MyList {
       foldLeft(l, List[A]())((x, xs)=>Cons(x, xs))
     }
 
-    def append[A](l1: List[A], l2: List[A]): List[A] = {
-
+    def appendRight[A](l1: List[A], l2: List[A]): List[A] = {
+      foldRight(l1,l2)((x,xs)=>Cons(x,xs))
     }
 
+    def concat[A](l: List[List[A]]): List[A] = {
+      foldRight(l, List[A]())((innerList:List[A], acc:List[A])=>appendRight(innerList,acc))
+    }
   }
 
 }

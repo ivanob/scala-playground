@@ -24,6 +24,7 @@ class ListSuite extends FunSuite {
 
   test("test some basic operations"){
     val l: List[Int] = Cons(1, Cons(2, Cons(3,Nil)))
+    val l2: List[Int] = Cons(4, Cons(5, Cons(6,Nil)))
     assert(List.tail(l)==Cons(2, Cons(3,Nil)))
     assert(List.drop(l,2)==Cons(3,Nil))
     assert(List.dropWhile(l)((a:Int)=>(a<2)) == Cons(3,Nil))
@@ -35,7 +36,9 @@ class ListSuite extends FunSuite {
     assert(List.sumLeft(l) == 6)
     assert(List.multLeft(l) == 6)
     assert(List.lengthLeft(l) == 3)
-    assert(List.reversePlain(l) == Cons(3, Cons(2, Cons(1,Nil))))
+   // assert(List.reversePlain(l) == Cons(3, Cons(2, Cons(1,Nil))))
     assert(List.reverse(l) == Cons(3, Cons(2, Cons(1,Nil))))
+    assert(List.appendRight(l, l2) == List(1,2,3,4,5,6))
+    assert(List.concat(List(List(1,2), List(3,4))) == List(1,2,3,4))
   }
 }
