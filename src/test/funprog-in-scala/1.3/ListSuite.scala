@@ -35,5 +35,7 @@ class ListSuite extends FunSuite {
     assert(List.sumLeft(l) == 6)
     assert(List.multLeft(l) == 6)
     assert(List.lengthLeft(l) == 3)
+    assert(List.reversePlain(l) == Cons(3, Cons(2, Cons(1,Nil))))
+    assert(List.reverse(l) == Cons(3, Cons(2, Cons(1,Nil))))
   }
 }

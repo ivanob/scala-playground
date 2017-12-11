@@ -27,8 +27,8 @@ object MyList {
     }
 
     def apply[A](l: A*): List[A] = {
-        if(l.isEmpty) Nil
-        else Cons(l.head, apply(l.tail: _*))
+      if(l.isEmpty) Nil
+      else Cons(l.head, apply(l.tail: _*))
     }
 
     //Exercise 3.2
@@ -102,9 +102,20 @@ object MyList {
     }
 
     //Exercise 3.12
-    def reverse[A](l: List[A]): List[A] = {
-      foldRight(l, Nil)((a:List[A], b:List[A])=>Cons(a,b))
+    def reversePlain[A](l: List[A]): List[A] = l match{
+      case Nil => Nil
+      case Cons(x, Nil) => Cons(x, Nil)
+      case Cons(x, xs) => Cons(x,reversePlain(xs))
     }
+
+    def reverse[A](l: List[A]): List[A] = {
+      foldLeft(l, List[A]())((x, xs)=>Cons(x, xs))
+    }
+
+    def append[A](l1: List[A], l2: List[A]): List[A] = {
+
+    }
+
   }
 
 }
