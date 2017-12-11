@@ -25,6 +25,7 @@ class ListSuite extends FunSuite {
   test("test some basic operations"){
     val l: List[Int] = Cons(1, Cons(2, Cons(3,Nil)))
     val l2: List[Int] = Cons(4, Cons(5, Cons(6,Nil)))
+    val dl: List[Double] = Cons(1.0, Cons(2.0, Cons(3.0, Nil)))
     assert(List.tail(l)==Cons(2, Cons(3,Nil)))
     assert(List.drop(l,2)==Cons(3,Nil))
     assert(List.dropWhile(l)((a:Int)=>(a<2)) == Cons(3,Nil))
@@ -41,5 +42,10 @@ class ListSuite extends FunSuite {
     assert(List.appendRight(l, l2) == List(1,2,3,4,5,6))
     assert(List.concat(List(List(1,2), List(3,4))) == List(1,2,3,4))
     assert(List.addOne(List(1,2,3)) == List(2,3,4))
+    assert(List.double2String(dl) == List("1.0", "2.0", "3.0"))
+    assert(List.map(List(1,2,3))(_+1) == List(2,3,4))
+    assert(List.map(dl)(_.toString) == List("1.0", "2.0", "3.0"))
+    assert(List.filter(List(1,2,3,4,5,6))(_%2==0) == List(2,4,6))
+    assert(List.flatMap(List(1,2,3))((i:Int)=>List(i,i)) == List(1,1,2,2,3,3))
   }
 }

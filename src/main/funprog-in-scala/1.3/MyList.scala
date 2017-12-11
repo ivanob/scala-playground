@@ -135,6 +135,27 @@ object MyList {
     def addOne(l: List[Int]): List[Int] = {
       foldRight(l,List[Int]())((a:Int,b: List[Int])=>Cons(a+1,b))
     }
+
+    //Exercise 3.17
+    def double2String(l: List[Double]): List[String] = {
+      foldRight(l,List[String]())((a:Double, b:List[String]) => Cons(a.toString, b))
+    }
+
+    //Exercise 3.18
+    def map[A,B](l: List[A])(f: A=>B):List[B] = {
+      foldRight(l,List[B]())((a:A, acc:List[B]) => Cons(f(a), acc))
+    }
+
+    //Exercise 3.19
+    def filter[A](l:List[A])(f:A=>Boolean): List[A] = {
+      foldRight(l,List[A]())((a:A, acc:List[A])=>if(f(a)) Cons(a,acc) else acc)
+    }
+
+    //Exercise 3.20
+    def flatMap[A,B](l: List[A])(f: A=>List[B]):List[B] = {
+      foldRight(l, List[B]())((a:A, acc:List[B]) => appendRight(f(a),acc))
+    }
   }
+
 
 }
