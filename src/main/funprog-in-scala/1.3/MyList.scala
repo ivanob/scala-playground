@@ -62,6 +62,17 @@ object MyList {
       case Cons(x, xs) => Cons(x,init(xs))
     }
 
+    /**
+      It is important to note that to call this function with an empty list as 
+      the first parameter we will use List[Int]() instead of Nil. Well, Int or whatever
+      type we are using. Here is a good explanation why:
+      https://stackoverflow.com/questions/5981850/scala-nil-vs-list
+      Basically it is like that because Cons(...) returns a List[Int] and if we
+      pass Nil, it will be expecting a List[Nothing] in return, which is incorrect.
+      Although Nil and List() are idiomatically equivalent this is an example where
+      scala can not infer the correct type. It would work in the opposite case: if
+      we are expecting List[Int]() and we return Nil
+    */
     def foldRight[A,B](l: List[A], acc: B)(f: (A, B) => B): B = l match {
       case Nil => acc
       case Cons(x, xs) => f(x,foldRight(xs,acc)(f))
