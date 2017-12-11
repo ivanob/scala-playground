@@ -40,5 +40,6 @@ class ListSuite extends FunSuite {
     assert(List.reverse(l) == Cons(3, Cons(2, Cons(1,Nil))))
     assert(List.appendRight(l, l2) == List(1,2,3,4,5,6))
     assert(List.concat(List(List(1,2), List(3,4))) == List(1,2,3,4))
+    assert(List.addOne(List(1,2,3)) == List(2,3,4))
   }
 }

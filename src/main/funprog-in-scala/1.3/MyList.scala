@@ -119,6 +119,11 @@ object MyList {
     def concat[A](l: List[List[A]]): List[A] = {
       foldRight(l, List[A]())((innerList:List[A], acc:List[A])=>appendRight(innerList,acc))
     }
+
+    //Exercise 3.16
+    def addOne(l: List[Int]): List[Int] = {
+      foldRight(l,List[Int]())((a:Int,b: List[Int])=>Cons(a+1,b))
+    }
   }
 
 }
