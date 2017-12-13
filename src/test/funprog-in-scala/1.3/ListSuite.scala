@@ -47,5 +47,8 @@ class ListSuite extends FunSuite {
     assert(List.map(dl)(_.toString) == List("1.0", "2.0", "3.0"))
     assert(List.filter(List(1,2,3,4,5,6))(_%2==0) == List(2,4,6))
     assert(List.flatMap(List(1,2,3))((i:Int)=>List(i,i)) == List(1,1,2,2,3,3))
+    assert(List.filterFlat(List(1,2,3,4,5,6))(_%2==0) == List(2,4,6))
+    assert(List.addLists(List(1,1,2),List(2,2,10))==List(3,3,12))
+    assert(List.zipWith(List(1,1,2),List(2,2,10))((a:Int,b:Int)=>a+b)==List(3,3,12))
   }
 }

@@ -155,6 +155,27 @@ object MyList {
     def flatMap[A,B](l: List[A])(f: A=>List[B]):List[B] = {
       foldRight(l, List[B]())((a:A, acc:List[B]) => appendRight(f(a),acc))
     }
+
+    //Exercise 3.21
+    def filterFlat[A](l: List[A])(f: A=>Boolean): List[A] = {
+      flatMap(l)((a:A)=>if(f(a)) List(a) else Nil)
+    }
+
+    //Exercise 3.22
+    def addLists(l1: List[Int], l2: List[Int]): List[Int] = (l1,l2) match {
+      case (Cons(x,xs),Cons(y,ys)) => Cons(x+y, addLists(xs,ys))
+      case (Nil, Cons(y,ys)) => Cons(y,ys)
+      case (Cons(x,xs), Nil) => Cons(x,xs)
+      case (Nil,Nil) => Nil
+    }
+
+    //Exercise 3.23
+    def zipWith[A,B,C](l1: List[A], l2:List[B])(f: (A,B)=>C): List[C] = (l1,l2) match {
+      case (Cons(x,xs),Cons(y,ys)) => Cons(f(x,y), zipWith(xs,ys)(f))
+      case (Nil, Cons(y,ys)) => Nil
+      case (Cons(x,xs), Nil) => Nil
+      case (Nil,Nil) => Nil
+    }
   }
 
 
