@@ -176,6 +176,23 @@ object MyList {
       case (Cons(x,xs), Nil) => Nil
       case (Nil,Nil) => Nil
     }
+
+    //Exercise 3.34
+    def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = (sup, sub) match {
+      case (Cons(x, xs), Cons(y, ys)) => {
+        if(x==y) if(f(xs,ys)) true else hasSubsequence(xs,sub) else hasSubsequence(xs,sub)
+      }
+      case (Nil,_) => false
+      case (_,Nil) => false
+    }
+
+    def f[A](sup: List[A], sub: List[A]): Boolean = (sup, sub) match {
+      case (Cons(x, xs), Cons(y, ys)) => if(x==y) f(xs,ys) else false
+      case (Nil,Nil) => true
+      case (Nil,_) => false
+      case (_,Nil) => true
+    }
+
   }
 
 
