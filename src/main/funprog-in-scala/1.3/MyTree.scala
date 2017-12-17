@@ -33,6 +33,9 @@ object MyTree {
     }
 
     //Exercise 3.29
-    def fold()
+    def fold[A,B](t: Tree[A], acc: B)(f: (A,B)=>B)(g: (B,B)=>B):B = t match {
+      case Branch(l,r) => g(fold(l,acc)(f)(g), fold(r,acc)(f)(g))
+      case Leaf(x) => f(x,acc)
+    }
   }
 }

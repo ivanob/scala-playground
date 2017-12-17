@@ -18,7 +18,8 @@ class TreeSuite extends FunSuite {
     assert(Tree.depth(tree2) == 3)
     assert(Tree.depth(tree3) == 5)
     assert(Tree.map(tree2)((a:Int) => a.toString) == Branch(Branch(Leaf("1"),Leaf("2")),Branch(Leaf("3"),Leaf("4"))))
-
+    val sum = (a:Int, b:Int)=>a+b
+    assert(Tree.fold(tree2,0)(sum)(sum) == 10)
   }
 
 }
