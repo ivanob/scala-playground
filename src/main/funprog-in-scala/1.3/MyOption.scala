@@ -10,7 +10,7 @@ object MyOption {
       case Some(x) => f(x)
     }
     def flatMap2[B](f: A => Option[B]): Option[B] = {
-      None
+      map(f).getOrElse(None)
     }
     def getOrElse[B >: A](default: => B): B = this match {
       case None => default
@@ -21,7 +21,7 @@ object MyOption {
       case Some(x) => Some(x)
     }
     def orElse2[B >: A](ob: => Option[B]): Option[B] = {
-      None
+      getOrElse(ob)
     }
     def filter(f: A => Boolean): Option[A] = this match {
       case None => None
@@ -29,6 +29,11 @@ object MyOption {
     }
     def filter2(f: A => Boolean): Option[A] = {
       None
+    }
+
+    def variance(xs: Seq[Double]): Option[Double] = {
+      val mean = xs.fold(0)((x,acc) => x+acc)/xs.length
+      val variance = xs.flatMap(x => math.pow(x-mean, 2))
     }
   }
   case object None extends Option[Nothing]

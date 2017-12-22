@@ -20,6 +20,9 @@ class OptionSuite extends FunSuite {
     assert(s2.filter(f) == None)
     assert(s.flatMap((a:Int) => Some(a)) == Some(5))
     assert(s2.flatMap((a:Int) => Some(a)) == Some(-1))
+    //New implementations
+    assert(s.filter2(f) == Some(5))
+    assert(s2.filter2(f) == None)
   }
 
 }
